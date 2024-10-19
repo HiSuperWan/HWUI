@@ -1,0 +1,275 @@
+感谢您使用HWUI，当您使用HWUI时，请不要修改load函数中的内容，这是不仅是对开发者的尊重，更是对开源社区的尊重，感谢您的理解，祝您的程序永不出BUG！
+您可以修改除load以外的所有函数内容 但请您标注“由HWUI修改”等字样 开源社区将因您变得更好！
+使用本UI请同时加载CSS与JS文件，请注意：UI的JS文件请优先加载，否则可能会调用失败！
+当前版本1.0预览版（不完美）
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HWUI帮助文档</title>
+    <link rel="stylesheet" href="./HWUI.CSS">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <hw-button color="normal">normal(默认)</hw-button>
+    <hw-button color="red">red</hw-button>
+    <hw-button color="green">green</hw-button>
+    <hw-button color="blue">blue</hw-button>
+    <hw-button color="yellow">yellow</hw-button>
+
+    <hw-tip color="blue">这是一个提示 | blue - 默认</hw-tip>
+    <hw-tip color="red">这是一个提示 | red</hw-tip>
+    <hw-tip color="green">这是一个提示 | green</hw-tip>
+
+    <hw-code>public class HelloWorld {
+        public static void main(String[] args) {
+        System.out.println("Hello, World!");
+        }
+        }</hw-code>
+
+    <div style="display: flex;">
+        <hw-switch id="test"></hw-switch>
+        <hw-switch id="test"></hw-switch>
+        <hw-switch id="test"></hw-switch>
+    </div>
+
+    <div style="display: flex;">
+        <hw-input type="text">账号</hw-input>
+        <hw-input type="password">密码</hw-input>
+        <hw-input type="number">手机号</hw-input>
+    </div>
+
+    <hw-tip>弹窗</hw-tip>
+    <div style="display: flex;justify-content: space-between;width: 500px;">
+        <hw-button class="button_messageBoxAlert">激活消息弹窗</hw-button>
+        <hw-button>激活双选弹窗</hw-button>
+        <hw-button>激活三选弹窗</hw-button>
+    </div>
+
+
+    <script src="./HWUI.JS"></script>
+    <script>
+
+
+        const HWMessageBox = (function () {
+            function HWalert(msg, title, buttonText, callback) {
+                var result = "error";
+                const back = document.createElement("div");
+                const window = document.createElement("div");
+                const titleEl = document.createElement("div");
+                const textEl = document.createElement("div");
+                const buttonEl = document.createElement("hw-button");
+                const closeButton = document.createElement("hw-closebutton");
+
+                titleEl.style.color = "#4e4e4e";
+                titleEl.style.fontWeight = 900;
+                titleEl.style.fontSize = "24px";
+
+                textEl.style.color = "#757575";
+                textEl.style.fontSize = "16px";
+
+                buttonEl.style.float = "right";
+
+                titleEl.innerHTML = title;
+                textEl.innerHTML = msg;
+                buttonEl.innerHTML = buttonText;
+                window.classList.add("hw-window");
+                back.classList.add("hw-window-back");
+
+                closeButton.style.top = "10px";
+                closeButton.style.right = "10px";
+                closeButton.style.position = "absolute";
+                closeButton.classList.add("hw-closebutton");
+
+                buttonEl.addEventListener("click", function () {
+                    result = "button";
+                    closeWindow(back, window);
+                    callback(result);
+                })
+
+                closeButton.addEventListener("click", function () {
+                    result = "close";
+                    closeWindow(back, window);
+                    callback(result);
+                })
+
+                if(title != ""){
+                    window.appendChild(titleEl);
+                }
+                window.appendChild(closeButton);
+                window.appendChild(textEl);
+                window.appendChild(buttonEl);
+
+                back.appendChild(window);
+                document.body.appendChild(back);
+                openWindow(back, window);
+            }
+
+
+            function HWalert(msg, title, buttonText, callback) {
+                var result = "error";
+                const back = document.createElement("div");
+                const window = document.createElement("div");
+                const titleEl = document.createElement("div");
+                const textEl = document.createElement("div");
+                const buttonEl = document.createElement("hw-button");
+                const closeButton = document.createElement("hw-closebutton");
+
+                titleEl.style.color = "#4e4e4e";
+                titleEl.style.fontWeight = 900;
+                titleEl.style.fontSize = "24px";
+
+                textEl.style.color = "#757575";
+                textEl.style.fontSize = "16px";
+
+                buttonEl.style.float = "right";
+
+                titleEl.innerHTML = title;
+                textEl.innerHTML = msg;
+                buttonEl.innerHTML = buttonText;
+                window.classList.add("hw-window");
+                back.classList.add("hw-window-back");
+
+                closeButton.style.top = "10px";
+                closeButton.style.right = "10px";
+                closeButton.style.position = "absolute";
+                closeButton.classList.add("hw-closebutton");
+
+                buttonEl.addEventListener("click", function () {
+                    result = "button";
+                    closeWindow(back, window);
+                    callback(result);
+                })
+
+                closeButton.addEventListener("click", function () {
+                    result = "close";
+                    closeWindow(back, window);
+                    callback(result);
+                })
+
+                window.appendChild(titleEl);
+                window.appendChild(closeButton);
+                window.appendChild(textEl);
+                window.appendChild(buttonEl);
+
+                back.appendChild(window);
+                document.body.appendChild(back);
+                openWindow(back, window);
+            }
+
+            return {
+                alert: HWalert
+            };
+        })();
+
+        function openWindow(back, window) {
+            back.style.opacity = 0;
+            window.style.marginTop = "-10%"
+            window.style.scale = 0;
+            setTimeout(function () {
+                back.style.opacity = 1;
+                window.style.marginTop = 0;
+                window.style.scale = 1.1;
+                setTimeout(function () {
+                    window.style.scale = 1;
+                }, 300)
+            }, 10)
+        }
+
+        function closeWindow(back, window) {
+            window.style.scale = 1.1;
+            setTimeout(function () {
+                window.style.scale = 0;
+                window.style.marginTop = "-10%"
+                back.style.opacity = 0;
+                setTimeout(function () {
+                    back.remove();
+                }, 310)
+            }, 300)
+        }
+
+
+        document.querySelector(".button_messageBoxAlert").addEventListener("click", function () {
+            HWMessageBox.alert("<h2>这是HTML弹窗</h2><h4>只需要将第一个参数更换成html代码即可！这样做可以把一些元素摆上来，例如下面这个:</h4><hw-button>嘿嘿按钮</hw-button><hw-input>嘿嘿输入框</hw-input><hw-switch></hw-switch>", "" , "按钮内容", function (result) {
+                console.log(result);
+            });
+        })
+
+
+
+
+
+    </script>
+
+    <script>
+        const hwCode = document.querySelector("hw-code");
+
+        var code = hwCode.innerHTML.split(/[\r\n]+/);
+        hwCode.innerHTML = "";
+
+        //按行进行排布
+        for (let i = 0; i < code.length; i++) {
+            var type = "";
+            var valueCode = false;
+            const line = document.createElement("div");
+            const num = document.createElement("span");
+            const codeLine = document.createElement("span");
+            const word = code[i].split(/\s+/);
+
+            for (let m = 0; m < word.length; m++) {
+                console.log();
+
+                //以双引号进行分割
+                let valueSp = word[m].split(/\"/);
+
+                for (let i2 = 0; i2 < valueSp.length; i2++) {
+                    if (valueSp.length < 2) {
+
+                    } else if (valueSp.length = 2) {
+                        const a = document.createElement("span");
+
+                        if (valueCode === true) {
+                            valueCode = false;
+                            a.innerHTML = "\"" + valueSp[i2];
+                            a.style.color = "#0cb631";
+                        } else {
+                            valueCode = true;
+                            a.innerHTML = valueSp[i2];
+                            a.style.color = "white";
+                        }
+
+                        codeLine.appendChild(a);
+
+                        console.log(i2 + " - " + valueSp[i2])
+                    }
+                }
+            }
+
+
+            line.style.width = "100%";
+            line.style.display = "block";
+
+            num.style.marginRight = "15px";
+            num.style.userSelect = "none";
+
+            num.innerHTML = i + 1;
+
+
+            line.appendChild(num);
+            line.appendChild(codeLine);
+            hwCode.appendChild(line);
+        }
+    </script>
+</body>
+
+</html>

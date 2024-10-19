@@ -1,0 +1,301 @@
+/* 感谢您使用HWUI，当您使用HWUI时，请不要修改load函数中的内容，这是不仅是对开发者的尊重，更是对开源社区的尊重，感谢您的理解，祝您的程序永不出BUG！
+您可以修改除load以外的所有函数内容 但请您标注“由HWUI修改”等字样 开源社区将因您变得更好！
+使用本UI请同时加载CSS与JS文件，请注意：UI的JS文件请优先加载，否则可能会调用失败！
+当前版本1.0预览版（不完美） */
+
+
+:root{
+    /* 可以修改下列颜色以改变主题色（数字依次递加，颜色越来越淡） */
+    --main-color:#158aff;
+    --main-color-0:#0066cd;
+    --main-color-1:#0d7ae8;
+    --main-color-2:#4da6ff;
+    --main-color-3:#84c2ff;
+    --main-color-4:#dbedff;
+  
+    --background-color-normal:#efefef7d;
+    --border-color-normal:#d1d1d1;
+    --font-color:#4e4e4e;
+
+    --red1:#eb5419;
+    --red2:#ffbcb0;
+    --red3:#fbdddc;
+
+    --yellow1:#ffb700;
+    --yellow2:#ffd977;
+    --yellow3:#f8f0dc;
+
+    --green1:#17b35a;
+    --green2:#81ffb8;
+    --green3:#dcfbea;
+}
+
+hw-button[color = blue]{
+    background-color: var(--main-color);
+    border: 2px solid var(--main-color);
+    color: var(--main-color-4);
+}
+
+hw-button[color = blue]:hover{
+    border: 2px solid var(--main-color-1);
+    background-color: var(--main-color-3);
+    color: var(--main-color-0);
+}
+
+hw-button[color = green]{
+    background-color: var(--green1);
+    border: 2px solid var(--green1);
+    color: var(--green3);
+}
+
+hw-button[color = green]:hover{
+    background-color: var(--green2);
+    border: 2px solid var(--green1);
+    color: var(--green1);
+}
+
+hw-button[color = red]{
+    background-color: var(--red1);
+    border: 2px solid var(--red1);
+    color: var(--red3);
+}
+
+hw-button[color = red]:hover{
+    background-color: var(--red2);
+    border: 2px solid var(--red1);
+    color: var(--red1);
+}
+
+hw-button[color = yellow]{
+    background-color: var(--yellow1);
+    border: 2px solid var(--yellow1);
+    color: var(--yellow3);
+}
+
+hw-button[color = yellow]:hover{
+    background-color: var(--yellow2);
+    border: 2px solid var(--yellow1);
+    color: var(--yellow1);
+}
+
+hw-button{
+    height: 34px;
+    width: auto;
+    cursor: pointer;
+    padding-left: 16px;
+    padding-right: 16px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    color: var(--font-color);
+    background-color: var(--background-color-normal);
+    border-radius: 5px;
+    border: 2px solid var(--border-color-normal);
+    font-size: 16px;
+    transition: 0.1s;
+}
+
+hw-button:hover{
+    transition: 0.1s;
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color-4);
+    color: var(--main-color);
+}
+
+hw-button:active{
+    scale: 0.95;
+}
+
+hw-tip{
+    width: calc(100% - 40px);
+    padding: 5px;
+    display: block;
+    margin: 5px;
+    margin-left: 12px;
+    text-align: left;
+    background-color: var(--main-color-4);
+    color: var(--font-color);
+    border-radius: 5px;
+    border-left: 8px solid var(--main-color);
+}
+
+hw-tip[color = red]{
+    background-color: #ffcec5;
+    border-left: 8px solid #ff2e2e;
+}
+
+hw-tip[color = green]{
+    background-color: #c5ffcf;
+    border-left: 8px solid #0cb631;
+}
+
+hw-code{
+    width: calc(100% - 40px);
+    font-family: serif;
+    background-color: #262626;
+    color: rgb(228, 228, 228);
+    display: block;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    white-space: pre;
+}
+
+hw-switch{
+    width: 70px;
+    height: 36px;
+    background-color: #0000002b;
+    display: block;
+    position: relative;
+    border-radius: 20px;
+    border: 2px solid #c8c8c8;
+    transition: 0.3s;
+}
+
+hw-switch::before{
+    content: "";
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    transition: 0.3s;
+}
+
+hw-switch:hover::before{
+    left: 4px;
+}
+
+hw-switch[active = true]{
+    background-color: var(--main-color);
+}
+
+hw-switch[active = true]::before{
+    left: calc(100% - 34px);
+    scale: 0.98;
+}
+hw-input{
+    width: 200px;
+    height: 60px;
+    display: block;
+    position: relative;
+}
+
+hw-input .hw-input-ph{
+    position: absolute;
+    left: 6px;
+    top: calc(50% - 3px);
+    font-size: 18px;
+    transition: 0.3s;
+    color: #afafaf;
+    z-index: -1;
+}
+
+.hw-input:focus + .hw-input-ph{
+    top: 0px;
+    font-size: 14px;
+    color: #989898;
+}
+
+.hw-input:hover{
+    border: 2px solid #b5b5b5b4;
+}
+
+.hw-input:focus{
+    border: 2px solid var(--main-color);
+}
+
+.hw-input-ph-2{
+    position: absolute;
+    left: 6px;
+    top: 0px;
+    font-size: 14px;
+    color: #989898;
+    z-index: -1;
+}
+
+.hw-input{
+    width: 100%;
+    height: calc(100% - 23px);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 7px;
+    outline: none;
+    border: 2px solid #b5b5b582;
+    font-size: 18px;
+    text-indent: 5px;
+    transition: 0.2s;
+    background-color: #ffffff00;
+    
+    color: var(--font-color);
+}
+
+
+.hw-window-back{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2c2c2c53;
+    transition: 0.3s;
+}
+
+.hw-window{
+    width: 400px;
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+    position: relative;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: #eeeeee;
+    box-shadow: 2px 2px 10px 0px #2d2d2d76;
+    transition: 0.3s;
+}
+
+hw-closebutton{
+    width: 24px;
+    height: 24px;
+    position: relative;
+}
+hw-closebutton::before{
+    transform: rotate(45deg);
+}
+
+hw-closebutton::after{
+    transform: rotate(135deg);
+}
+
+hw-closebutton::before{
+    content: "关闭";
+}
+
+hw-closebutton::before , hw-closebutton::after{
+    content: "";
+    width: 3px;
+    height: 24px;
+    border-radius: 5px;
+    background-color: #4a4a4a;
+    position: absolute;
+    top: 7;
+    left: 10px;
+    transition: 0.2s;
+}
+
+hw-closebutton:hover::before , hw-closebutton:hover::after{
+    transform: rotate(270deg);
+    background-color: #ff0000;
+}
+
+hw-closebutton:active::before , hw-closebutton:active::after{
+    height: 0px;
+    width: 0px;
+    background-color: #ff0000;
+}
